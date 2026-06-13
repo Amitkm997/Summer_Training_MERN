@@ -22,7 +22,7 @@
          </ul>
     </div>
     <h1 style="color: rgb(76, 22, 238);background-color: aqua;">Hello there!</h1>
-    <h2>This is Internal CSS</h2>
+    <h2 id="title">This is Internal CSS</h2>
     <p>External CSS</p>
 
     <div class="main">
@@ -57,4 +57,11 @@
     
     
 </body>
+
+<script>
+    let title=document.getElementById("title");
+    console.log(title);
+    // title.innerHTML="Welcome students!";
+    title.style.color="pink";
+</script>
 </html>

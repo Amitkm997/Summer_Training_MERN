@@ -1,7 +1,7 @@
 import React from 'react'
-import CompanyCard from './CompanyCard'
-import StudentCard from './StudentCard'
-import StudentRegistration from '../pages/StudentRegistration'
+import CompanyCard from '../components/CompanyCard'
+import StudentCard from '../components/StudentCard'
+import StudentRegistration from './StudentRegistration'
 
 export const Home = () => {
   const companies=[
@@ -23,6 +23,33 @@ export const Home = () => {
       role:"Backend Developer",
       salaryPackage:"25 LPA"
     }
+  ]
+
+  const students=[
+     {
+      id:1,
+      name:"Amit Kumar",
+      course:"B.Tech IT",
+      skills:"Reactjs,Nodejs,Mongodb",
+      college:"AIT Kanpur",
+      image:"https://static.vecteezy.com/system/resources/thumbnails/005/346/410/small/close-up-portrait-of-smiling-handsome-young-caucasian-man-face-looking-at-camera-on-isolated-light-gray-studio-background-photo.jpg"
+     },
+     {
+      id:2,
+      name:"Amit Kumar",
+      course:"B.Tech IT",
+      skills:"Reactjs,Nodejs,Mongodb",
+      college:"AIT Kanpur",
+      image:"https://static.vecteezy.com/system/resources/thumbnails/005/346/410/small/close-up-portrait-of-smiling-handsome-young-caucasian-man-face-looking-at-camera-on-isolated-light-gray-studio-background-photo.jpg"
+     },
+     {
+      id:2,
+      name:"Amit Kumar",
+      course:"B.Tech IT",
+      skills:"Reactjs,Nodejs,Mongodb",
+      college:"AIT Kanpur",
+      image:"https://static.vecteezy.com/system/resources/thumbnails/005/346/410/small/close-up-portrait-of-smiling-handsome-young-caucasian-man-face-looking-at-camera-on-isolated-light-gray-studio-background-photo.jpg"
+     }
   ]
   return (
     <>
@@ -62,14 +89,28 @@ export const Home = () => {
        <section className='bg-gray-100 py-16'>
         <div className='max-w-7xl mx-auto px-6'>
           <h2 className='text-3xl font-bold text-center mb-10'>Top Hiring Comanies</h2>
-          <div>
+          <div className='grid md:grid-cols-3 gap-6'>
             {/* <CompanyCard name="Google" role="Software Enginner" salaryPackage="18 LPA" />
             <CompanyCard name="Google" role="Software Enginner" salaryPackage="18 LPA" />
             <CompanyCard name="Google" role="Software Enginner" salaryPackage="18 LPA" /> */}
             {companies.map((cur)=>{
-              <CompanyCard name={cur.name} role={cur.role} salaryPackage={cur.salaryPackage}/>
+               return <CompanyCard name={cur.name} role={cur.role} salaryPackage={cur.salaryPackage}/>
             })}
           </div>
+
+        </div>
+       </section>
+
+       {/* StudentCard  */}
+      <section>
+        <h2 className='text-3xl font-bold text-center mb-10 mt-4'>Featured Students</h2>
+
+        <div className='grid md:grid-cols-3 gap-6'>
+            {
+              students.map((student)=>(
+                <StudentCard student={student}/>
+              ))
+            }
         </div>
        </section>
     </>

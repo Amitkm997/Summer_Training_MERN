@@ -1,23 +1,18 @@
 import express from 'express';
 import studentRoute from './routes/studentRoutes.js'
+import {connectDB} from './config/db.js'
+import dotenv from 'dotenv'
 
+dotenv.config();
 const app=express(); 
 
-const port=3000;
-app.use(express.json());
+app.use(express.json()); // this parses the data coming from frontend
 
+connectDB();
 
 app.use('/student',studentRoute)
 
-app.get('/',(req,res)=>{
-    res.send("Placement Mangemagent Route...")
+app.listen(process.env.PORT,()=>{
+    console.log(`Server Running on port ${process.env.PORT}`)
 });
 
-
-app.get('/college',(req,res)=>{
-    res.send("College Route....")
-})
-
-app.listen(port,()=>{
-    console.log(`Server Running on port ${port}`)
-});

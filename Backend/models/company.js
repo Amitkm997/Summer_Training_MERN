@@ -1,25 +1,23 @@
 import mongoose from "mongoose";
 
-const studentSchema=new mongoose.Schema({
-    name:{
+const companySchema=new mongoose.Schema({
+    companyName:{
+        type:String,
+        reqruired:true
+    },
+    role:{
         type:String,
         required:true
     },
-    email:{
+    salaryPackage:{
         type:String,
         required:true
     },
-    course:{
+    location:{
         type:String,
         required:true
     },
-    skills:{
-        type:String,
-        required:true
-    }
 },{timestamps:true})
 
-module.exports = mongoose.model(
-    "Student",
-    studentSchema
-  );
+
+export default mongoose.model("Company",companySchema);

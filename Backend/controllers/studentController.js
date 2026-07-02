@@ -1,5 +1,6 @@
 import Student from "../models/student.js"
 import bcrypt from "bcrypt";
+import jwt from 'jsonwebtoken'
 
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
@@ -112,6 +113,48 @@ export const registerStudent = async (req, res) => {
     res.status(500).json({
       success: false,
       message: error.message
+    })
+  }
+}
+
+
+export const loginStudent = async (req, res) => {
+  try{
+     const{email,password}=req.body
+
+     const student=await Student.findOne({email});
+
+     // checking for existing user
+     if(!student){
+      return res.status(400).json({
+        success:false,
+        message:"Student not found register first"
+      })
+     }
+
+     //password match
+    let comapredPassword=await bcrypt.compare(password,student.password);
+
+    if(!comapredPassword){
+      res.status(400).json({
+         success:false,
+         message:"Password is not correct",
+      })
+    }
+
+    // token generating
+    let token=jwt.sign({id:student._id,email:student.email},process.env.JWR_SECRET,{expiresIn:'1d'});
+
+    res.status(200).json({
+      success:true,
+      message:"token generated successfully",
+      token:token
+    })
+
+  }catch(error){
+    res.status(500).json({
+      success:false,
+      message:error.message
     })
   }
 }

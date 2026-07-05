@@ -7,7 +7,8 @@ const studentSchema=new mongoose.Schema({
     },
     email:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
     password:{
         type:String,
@@ -20,6 +21,10 @@ const studentSchema=new mongoose.Schema({
     skills:{
         type:String,
         required:true
+    },
+    role:{
+        type:String,
+        default:"student"
     }
 },{timestamps:true})
 

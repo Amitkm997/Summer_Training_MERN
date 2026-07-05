@@ -117,10 +117,11 @@ export const registerStudent = async (req, res) => {
   }
 }
 
-
 export const loginStudent = async (req, res) => {
   try{
      const{email,password}=req.body
+
+     
 
      const student=await Student.findOne({email});
 
@@ -136,14 +137,15 @@ export const loginStudent = async (req, res) => {
     let comapredPassword=await bcrypt.compare(password,student.password);
 
     if(!comapredPassword){
-      res.status(400).json({
+      return res.status(400).json({
          success:false,
          message:"Password is not correct",
       })
     }
-
+     console.log("tken")
     // token generating
-    let token=jwt.sign({id:student._id,email:student.email},process.env.JWR_SECRET,{expiresIn:'1d'});
+    let token=jwt.sign({id:student._id,email:student.email},"This is my secret key",{expiresIn:'1d'});
+
 
     res.status(200).json({
       success:true,

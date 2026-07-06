@@ -60,7 +60,7 @@ export const getStudent = async (req, res) => {
 
 export const registerStudent = async (req, res) => {
   try {
-    const { name, email, password, skills, course } = req.body;
+    const { name, email, password, skills, course,role } = req.body;
 
     if (!name) return res.status(400).json({ success: false, message: "Please eneter name" });
     if (!email) return res.status(400).json({ success: false, message: "Please eneter email" });
@@ -97,7 +97,8 @@ export const registerStudent = async (req, res) => {
       email,
       password:hashedPassword,
       course,
-      skills
+      skills,
+      role
     })
 
 

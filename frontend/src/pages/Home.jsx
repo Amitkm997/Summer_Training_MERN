@@ -1,7 +1,7 @@
 import React from 'react'
 
 import StudentRegistration from './StudentRegistration'
-
+import { Link } from 'react-router-dom'
 export const Home = () => {
   return (
     <>
@@ -12,7 +12,7 @@ export const Home = () => {
             <p className='text-xl text-gray-700 mb-8' >Helping Students Get their Dream Job</p>
 
             <div className='flex justify-center gap-4'>
-              <button className='bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700'>Register Now</button>
+              <Link to='/registration'><button className='bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700'>Register Now</button></Link>
               <button className='bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700'>View Companies</button>
             </div>
            </div>

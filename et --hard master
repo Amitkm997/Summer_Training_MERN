@@ -1,0 +1,13 @@
+* [33m2622c1e[m[33m ([m[1;32mmaster[m[33m)[m registration form
+*   [33m0dac2f3[m[33m ([m[1;31morigin/master[m[33m)[m project
+[32m|[m[33m\[m  
+[32m|[m * [33mf11cf28[m isAdmin functionality added
+[32m|[m * [33m2848d43[m student login
+[32m|[m * [33me6dd8ec[m Registered Student
+[32m|[m * [33m798a3df[m student controller
+[32m|[m * [33ma6625e4[m company_controller_completed
+[32m|[m * [33m336dad8[m CRUD Operation Performed
+* [33m|[m [33m3a75b00[m project
+[33m|[m[33m/[m  
+* [33m9f3b0b3[m mongodb connected
+o [33m8437ee5[m router middleware

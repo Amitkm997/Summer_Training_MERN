@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbar{
+            background: rgb(0, 0, 255);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+        
+        .nav-links{
+            display: flex;
+            gap: 25px;
+        }
+          
+        .nav-links a{
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        
+        .hero{
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .hero h1{
+            color: darkblue;
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .hero p{
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .hero button{
+            padding: 15px 30px;
+            background-color: blue;
+            color: white;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        .features{
+            width: 90%;
+            margin: 50px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+            gap: 20px;
+        }
+
+        .card{
+            background:white ;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px gray;
+        }
+
+        .card h2{
+            color: darkblue;
+            margin-bottom: 15px;
+        }
+
+        .card p{
+            color: steelblue;
+        }
+
+        footer{
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+     <div class="navbar">
+        <div class="logo">
+            <h2>LibraryMS</h2>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="addBooks.html">Add Books</a>
+            <a href="books.html">Books</a>
+            <a href="borrowBook.html">Borrow</a>
+            <a href="returnBook.html">Return</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+     </div>
+     <!-- Hero  -->
+     <section class="hero">
+        <h1>Library Management System</h1>
+
+        <p>Manage books, isssue books, return books and keep track of your Library with ease.</p>
+        <button onclick="window.location.href='addBooks.html' ">
+            Add New Book
+        </button>
+     </section>
+
+     <!-- Features  -->
+      <section class="features">
+          <div class="card">
+            <h2>Add books</h2>
+            <p>Add new Books to the library collection</p>
+          </div>
+          <div class="card">
+             <h2>Return Books</h2>
+             <p>Return Books and update availability</p>
+          </div>
+           <div class="card">
+             <h2>Borrow Books</h2>
+             <p>Borrow Books to students and maintain records</p>
+          </div>
+           <div class="card">
+             <h2>Search Books</h2>
+             <p>Find books quickly by title or author</p>
+          </div>
+      </section>
+
+      <!-- footer  -->
+       <footer>
+        <p>@2026 Library Management System. All Rights Reserved.</p>
+       </footer>
+</body>
+</html>

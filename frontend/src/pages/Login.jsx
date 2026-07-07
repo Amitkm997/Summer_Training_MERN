@@ -32,7 +32,7 @@ export default function Login() {
         return newError;
     }
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=async(e)=>{
         e.preventDefault();
         const validateErrors=validate();
 
@@ -40,7 +40,13 @@ export default function Login() {
             setErrors(validateErrors);
             return;
         }
-
+        try {
+            const response=await API.post("/student/login",user);
+            localStorage.setItem("token",response.data.token);
+            localStorage.setItem("user",JSON.stringify(response.data.user));
+        } catch (error) {
+            console.log(error);
+        }
         alert("Login Successfully");
         navigate('/')
 

@@ -1,8 +1,9 @@
 import React from 'react'
-
+import { useState } from 'react'
 import StudentRegistration from './StudentRegistration'
 import { Link } from 'react-router-dom'
 export const Home = () => {
+  const [loading, setLoading] = useState(false);
   return (
     <>
        {/* Hero Section  */}
@@ -12,7 +13,13 @@ export const Home = () => {
             <p className='text-xl text-gray-700 mb-8' >Helping Students Get their Dream Job</p>
 
             <div className='flex justify-center gap-4'>
-              <Link to='/registration'><button className='bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700'>Register Now</button></Link>
+              <Link to='/registration'><button
+  type="submit"
+  disabled={loading}
+  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-semibold py-3 rounded-lg transition"
+>
+  {loading ? "Registering..." : "Register Student"}
+</button></Link>
               <button className='bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700'>View Companies</button>
             </div>
            </div>

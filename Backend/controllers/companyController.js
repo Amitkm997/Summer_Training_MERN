@@ -1,32 +1,59 @@
 import Company from '../models/company.js'
 
-export const addCompany=async (req,res)=> {
-     try{
-        console.log(req.body)
-        const{companyName,role,salaryPackage,location}=req.body;
-
-         if(companyName==""){
-            return res.status(400).send("please provide comapnay name");
-         }
-
-         if(role==""){
-            return res.status(400).send("please provide comapnay name");
-         }
-
-         
-        const company=await Company.create(req.body);
-
-
-        res.status(201).json({
-            success:true,
-            message:"Comapnay added successfully",
-            company
-        })
-        
-     }catch(error){
-        console.log(error)
+export const addCompany = async (req, res) => {
+   try {
+     const { companyName, role, salaryPackage, location } = req.body;
+ 
+     // Validation
+     if (!companyName) {
+       return res.status(400).json({
+         success: false,
+         message: "Please provide company name",
+       });
      }
-}
+ 
+     if (!role) {
+       return res.status(400).json({
+         success: false,
+         message: "Please provide job role",
+       });
+     }
+ 
+     if (!salaryPackage) {
+       return res.status(400).json({
+         success: false,
+         message: "Please provide salary package",
+       });
+     }
+ 
+     if (!location) {
+       return res.status(400).json({
+         success: false,
+         message: "Please provide location",
+       });
+     }
+ 
+     const company = await Company.create({
+       companyName,
+       role,
+       salaryPackage,
+       location,
+     });
+ 
+     res.status(201).json({
+       success: true,
+       message: "Company added successfully",
+       company,
+     });
+   } catch (error) {
+     console.error(error);
+ 
+     res.status(500).json({
+       success: false,
+       message: error.message,
+     });
+   }
+ };
 
 export const getCompany=async(req,res)=>{
    try{

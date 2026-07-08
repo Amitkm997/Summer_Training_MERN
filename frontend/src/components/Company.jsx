@@ -1,26 +1,27 @@
-import React from 'react'
-import CompanyCard from '../pages/CompanyCard'
+
+import React, { useEffect, useState } from "react";
+import CompanyCard from "../pages/CompanyCard";
+import API from "../services/api";
 export default function Company() {
-     const companies=[
-    {
-      id:1,
-      name:"Google",
-      role:"Software Enginner",
-      salaryPackage:"18 LPA"
-    },
-    {
-      id:2,
-      name:"Microsoft",
-      role:"Frontend Developer",
-      salaryPackage:"14 LPA"
-    },
-    {
-      id:3,
-      name:"Amazon",
-      role:"Backend Developer",
-      salaryPackage:"25 LPA"
+  const [companies, setCompanies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    fetchCompanies();
+  }, []);
+  
+  const fetchCompanies = async () => {
+    try {
+      const response = await API.get("/company");
+  
+      console.log(response.data);
+  
+      setCompanies(response.data.companies);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-  ]
+  };
   return (
     <section className='bg-gray-100 py-16'>
          {/* Top Hiring Comapanies  */}
@@ -31,7 +32,7 @@ export default function Company() {
                 <CompanyCard name="Google" role="Software Enginner" salaryPackage="18 LPA" />
                 <CompanyCard name="Google" role="Software Enginner" salaryPackage="18 LPA" /> */}
                 {companies.map((cur)=>{
-                   return <CompanyCard name={cur.name} role={cur.role} salaryPackage={cur.salaryPackage}/>
+                   return <CompanyCard key={cur._id}  id={cur._id} name={cur.companyName} role={cur.role} salaryPackage={cur.salaryPackage}/>
                 })}
               </div>
     

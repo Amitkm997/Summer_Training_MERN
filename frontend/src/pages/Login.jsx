@@ -1,45 +1,52 @@
-import React from 'react'   
+import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import API from '../services/api';
 export default function Login() {
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({
         email: "",
         password: "",
     })
 
-    const [errors,setErrors]=useState({});
+    const [errors, setErrors] = useState({});
     console.log(errors)
-    const handleChange=(e)=>{
+    const handleChange = (e) => {
         setUser({
             ...user,
-            [e.target.name]:e.target.value,
+            [e.target.name]: e.target.value,
         })
     };
 
-    const validate=()=>{
-        let newError={}
+    const validate = () => {
+        let newError = {}
 
-        if(!user.email.trim()){
-            newError.email="Email is Required"
+        if (!user.email.trim()) {
+            newError.email = "Email is Required"
         }
 
-        if(!user.password.trim()){
-            newError.password="Password is Required"
+        if (!user.password.trim()) {
+            newError.password = "Password is Required"
         }
 
         return newError;
     }
 
+<<<<<<< HEAD
     const handleSubmit=async(e)=>{
+=======
+    const handleSubmit = async (e) => {
+>>>>>>> a3552ac (role based access completed)
         e.preventDefault();
-        const validateErrors=validate();
 
-        if(Object.keys(validateErrors).length>0){
+        const validateErrors = validate();
+
+        if (Object.keys(validateErrors).length > 0) {
             setErrors(validateErrors);
             return;
         }
+<<<<<<< HEAD
         try {
             const response=await API.post("/student/login",user);
             localStorage.setItem("token",response.data.token);
@@ -49,15 +56,43 @@ export default function Login() {
         }
         alert("Login Successfully");
         navigate('/')
+=======
 
-        setUser({
-            email:"",
-            password:"",
-        })
+        try {
+            const response = await API.post("/student/login", user);
+            console.log(response.data);
+            // Save Token
+            localStorage.setItem("token", response.data.token);
+>>>>>>> a3552ac (role based access completed)
 
-        setErrors({});
+            // Save Student Data
+            localStorage.setItem(
+                "student",
+                JSON.stringify(response.data.student)
+            );
+            // Redirect based on role
+            alert(response.data.message);
 
-    }
+if (response.data.student.role === "admin") {
+    navigate("/add-company");
+} else {
+    navigate("/");
+}
+
+        
+
+            setUser({
+                email: "",
+                password: "",
+            });
+
+            setErrors({});
+        } catch (error) {
+            alert(
+                error.response?.data?.message || "Login Failed"
+            );
+        }
+    };
     return (
         <>
             <div className='min-h-screen flex justify-center items-center gb-gray-200'>
@@ -68,7 +103,7 @@ export default function Login() {
                         {/* Email  */}
                         <div className='mb-4'>
                             <label className='block font-medium mb-2'>Email</label>
-                            <input className='w-full border border-gray-300 rounded-lg p-3' type="email" name="email" value={user.email} onChange={handleChange}  />
+                            <input className='w-full border border-gray-300 rounded-lg p-3' type="email" name="email" value={user.email} onChange={handleChange} />
                             {errors.email && (
                                 <p className='text-red-400'>{errors.email}</p>
                             )}
@@ -76,7 +111,7 @@ export default function Login() {
                         {/* password  */}
                         <div>
                             <label className='block font-medium mb-2'>Password</label>
-                            <input className='w-full border border-gray-300 rounded-lg p-3' type="password" name='password' value={user.password} onChange={handleChange}/>
+                            <input className='w-full border border-gray-300 rounded-lg p-3' type="password" name='password' value={user.password} onChange={handleChange} />
                             {errors.password && (
                                 <p className='text-red-400'>{errors.password}</p>
                             )}

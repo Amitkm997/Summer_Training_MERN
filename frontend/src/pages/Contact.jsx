@@ -17,10 +17,6 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-
-=======
->>>>>>> a3552ac (role based access completed)
     console.log(contact);
 
     alert("Message Sent Successfully!");

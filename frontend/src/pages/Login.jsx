@@ -1,129 +1,162 @@
-import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import API from '../services/api';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import API from "../services/api";
+
 export default function Login() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [user, setUser] = useState({
-        email: "",
-        password: "",
-    })
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
 
-    const [errors, setErrors] = useState({});
-    console.log(errors)
-    const handleChange = (e) => {
-        setUser({
-            ...user,
-            [e.target.name]: e.target.value,
-        })
-    };
+  const [errors, setErrors] = useState({});
 
-    const validate = () => {
-        let newError = {}
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-        if (!user.email.trim()) {
-            newError.email = "Email is Required"
-        }
+  const validate = () => {
+    let newError = {};
 
-        if (!user.password.trim()) {
-            newError.password = "Password is Required"
-        }
-
-        return newError;
+    if (!user.email.trim()) {
+      newError.email = "Email is Required";
     }
 
-<<<<<<< HEAD
-    const handleSubmit=async(e)=>{
-=======
-    const handleSubmit = async (e) => {
->>>>>>> a3552ac (role based access completed)
-        e.preventDefault();
+    if (!user.password.trim()) {
+      newError.password = "Password is Required";
+    }
 
-        const validateErrors = validate();
+    return newError;
+  };
 
-        if (Object.keys(validateErrors).length > 0) {
-            setErrors(validateErrors);
-            return;
-        }
-<<<<<<< HEAD
-        try {
-            const response=await API.post("/student/login",user);
-            localStorage.setItem("token",response.data.token);
-            localStorage.setItem("user",JSON.stringify(response.data.user));
-        } catch (error) {
-            console.log(error);
-        }
-        alert("Login Successfully");
-        navigate('/')
-=======
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        try {
-            const response = await API.post("/student/login", user);
-            console.log(response.data);
-            // Save Token
-            localStorage.setItem("token", response.data.token);
->>>>>>> a3552ac (role based access completed)
+    const validateErrors = validate();
 
-            // Save Student Data
-            localStorage.setItem(
-                "student",
-                JSON.stringify(response.data.student)
-            );
-            // Redirect based on role
-            alert(response.data.message);
+    if (Object.keys(validateErrors).length > 0) {
+      setErrors(validateErrors);
+      return;
+    }
 
-if (response.data.student.role === "admin") {
-    navigate("/add-company");
-} else {
-    navigate("/");
-}
+    try {
+      const response = await API.post("/student/login", user);
 
-        
+      console.log(response.data);
 
-            setUser({
-                email: "",
-                password: "",
-            });
+      // Save Token
+      localStorage.setItem("token", response.data.token);
 
-            setErrors({});
-        } catch (error) {
-            alert(
-                error.response?.data?.message || "Login Failed"
-            );
-        }
-    };
-    return (
-        <>
-            <div className='min-h-screen flex justify-center items-center gb-gray-200'>
-                <div className='bg-white shadow-lg rounded-xl p-8 w-full max-w-md'>
-                    <h1 className='text-3xl font-bold text-center text-blue-600 mb-6'>Login</h1>
+      // Save Logged-in User
+      localStorage.setItem(
+        "student",
+        JSON.stringify(response.data.student)
+      );
 
-                    <form onSubmit={handleSubmit}>
-                        {/* Email  */}
-                        <div className='mb-4'>
-                            <label className='block font-medium mb-2'>Email</label>
-                            <input className='w-full border border-gray-300 rounded-lg p-3' type="email" name="email" value={user.email} onChange={handleChange} />
-                            {errors.email && (
-                                <p className='text-red-400'>{errors.email}</p>
-                            )}
-                        </div>
-                        {/* password  */}
-                        <div>
-                            <label className='block font-medium mb-2'>Password</label>
-                            <input className='w-full border border-gray-300 rounded-lg p-3' type="password" name='password' value={user.password} onChange={handleChange} />
-                            {errors.password && (
-                                <p className='text-red-400'>{errors.password}</p>
-                            )}
-                        </div>
+      alert(response.data.message);
 
-                        <button className='w-full bg-blue-600 text-white py-3 mt-4 rounded-lg hover:bg-blue-700' type='submit'>Login</button>
-                    </form>
-                    <p className='text-center mt-4 text-gray-600'>Dont'have an account</p>{" "}
-                    <span className='text-blue-600 cursor-pointer'>Register</span>
+      // Redirect based on role
+      if (response.data.student.role === "admin") {
+        navigate("/add-company");
+      } else {
+        navigate("/");
+      }
 
-                </div>
-            </div>
-        </>
-    )
+      // Clear Form
+      setUser({
+        email: "",
+        password: "",
+      });
+
+      setErrors({});
+
+      // Refresh Navbar
+      window.location.reload();
+
+    } catch (error) {
+      alert(
+        error.response?.data?.message || "Login Failed"
+      );
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
+      <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-md">
+
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
+          Login
+        </h1>
+
+        <form onSubmit={handleSubmit}>
+
+          {/* Email */}
+          <div className="mb-4">
+            <label className="block font-medium mb-2">
+              Email
+            </label>
+
+            <input
+              className="w-full border border-gray-300 rounded-lg p-3"
+              type="email"
+              name="email"
+              value={user.email}
+              onChange={handleChange}
+            />
+
+            {errors.email && (
+              <p className="text-red-500 mt-1">
+                {errors.email}
+              </p>
+            )}
+          </div>
+
+          {/* Password */}
+          <div className="mb-4">
+            <label className="block font-medium mb-2">
+              Password
+            </label>
+
+            <input
+              className="w-full border border-gray-300 rounded-lg p-3"
+              type="password"
+              name="password"
+              value={user.password}
+              onChange={handleChange}
+            />
+
+            {errors.password && (
+              <p className="text-red-500 mt-1">
+                {errors.password}
+              </p>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg mt-4"
+          >
+            Login
+          </button>
+
+        </form>
+
+        <p className="text-center mt-4 text-gray-600">
+          Don't have an account?
+        </p>
+
+        <button
+          onClick={() => navigate("/registration")}
+          className="text-blue-600 hover:underline block mx-auto mt-2"
+        >
+          Register
+        </button>
+
+      </div>
+    </div>
+  );
 }

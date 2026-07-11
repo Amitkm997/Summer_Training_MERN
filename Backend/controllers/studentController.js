@@ -150,7 +150,7 @@ export const loginStudent = async (req, res) => {
 
     res.status(200).json({
       success:true,
-      message:"token generated successfully",
+      message:"User Registered Successfylly",
       token:token,
       student: {
         _id: student._id,

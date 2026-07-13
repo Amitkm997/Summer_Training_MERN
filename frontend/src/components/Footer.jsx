@@ -1,5 +1,6 @@
 
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
@@ -18,12 +19,12 @@ export default function Footer() {
             {/* Quick Links  */}
             <div>
               <h3 className='text-xl font-semibold mb-3'>Quick Links</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li className='hover:text-white cursor-pointer'>Home</li>
-                <li className='hover:text-white cursor-pointer'>Companies</li>
-                <li className='hover:text-white cursor-pointer'>Students</li>
-                <li className='hover:text-white cursor-pointer'>About</li>
-                <li className='hover:text-white cursor-pointer'>Contact</li>
+              <ul className="space-y-2 text-gray-400 ">
+                <Link to='/' className='hover:text-white cursor-pointer'>Home</Link>
+                <Link to='/companies' className='hover:text-white cursor-pointer'>Companies</Link>
+                <Link to='/student' className='hover:text-white cursor-pointer'>Students</Link>
+                <Link to='/about' className='hover:text-white cursor-pointer'>About</Link>
+                <Link to='contact' className='hover:text-white cursor-pointer'>Contact</Link>
               </ul>
             </div>
 

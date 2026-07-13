@@ -1,6 +1,7 @@
 import React from "react";
-
+import { useNavigate } from "react-router-dom";
 export default function About() {
+  const navigate=useNavigate();
   return (
     <div className="bg-gray-100 min-h-screen py-12 px-6">
       <div className="max-w-6xl mx-auto">
@@ -161,7 +162,7 @@ export default function About() {
             step towards your dream career.
           </p>
 
-          <button className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 rounded-lg text-lg font-semibold">
+          <button onClick={()=>navigate('/registration')} className="bg-blue-700 hover:bg-blue-800 text-white px-8 py-3 rounded-lg text-lg font-semibold">
             Get Started
           </button>
 

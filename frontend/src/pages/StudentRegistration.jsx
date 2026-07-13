@@ -59,7 +59,7 @@ export default function StudentRegistration() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); //prevent page to reload
 
     setSuccess("");
     setServerError("");
@@ -264,7 +264,7 @@ export default function StudentRegistration() {
 
             <p><strong>Email:</strong> {formData.email || "-"}</p>
 
-            <p><strong>Password:</strong> {formData.password || "-"}</p>
+            <p><strong>Password:</strong> {"*********"}</p>
 
             <p><strong>Course:</strong> {formData.course || "-"}</p>
 

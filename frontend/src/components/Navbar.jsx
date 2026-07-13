@@ -42,7 +42,7 @@ function Navbar() {
           </Link>
 
           <Link to="/about" className="hover:text-yellow-300 transition">
-            About
+            AboutUs
           </Link>
 
           <Link to="/contact" className="hover:text-yellow-300 transition">

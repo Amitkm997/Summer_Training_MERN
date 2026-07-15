@@ -8,7 +8,7 @@ export default function CompanyDetails() {
 
   const [company, setCompany] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [applied, setApplied] = useState(false);
   useEffect(() => {
     fetchCompany();
   }, []);
@@ -25,6 +25,24 @@ export default function CompanyDetails() {
       alert(error.response?.data?.message || "Unable to fetch company");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleApply = async () => {
+    try {
+      const response = await API.post(`/student/apply/${company._id}`);
+
+      alert(response.data.message);
+
+      setApplied(true);
+    } catch (error) {
+      if (error.response?.data?.message === "You have already applied for this job.") {
+        setApplied(true);
+        return;
+      }
+    
+      alert(error.response?.data?.message || "Failed to apply");
+      
     }
   };
 
@@ -98,9 +116,14 @@ export default function CompanyDetails() {
         <div className="mt-10 flex gap-4">
 
           <button
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg"
+            onClick={handleApply}
+            disabled={applied}
+            className={`px-6 py-3 rounded-lg text-white ${applied
+                ? "bg-gray-500 cursor-not-allowed"
+                : "bg-green-600 hover:bg-green-700"
+              }`}
           >
-            Apply Now
+            {applied ? "Already Applied" : "Apply Now"}
           </button>
 
           <button

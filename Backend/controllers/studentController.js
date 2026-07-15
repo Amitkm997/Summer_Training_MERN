@@ -167,3 +167,53 @@ export const loginStudent = async (req, res) => {
     })
   }
 }
+
+
+// getStudentById 
+
+export const getStudentById = async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.id).select("-password").populate('appliedCompanies');
+
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: "Student not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      student,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+export const getLoggedInStudent = async (req, res) => {
+    try {
+
+        const student = await Student.findById(req.user.id)
+            .select("-password")
+            .populate("appliedCompanies");
+
+        res.status(200).json({
+            success: true,
+            student
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+};

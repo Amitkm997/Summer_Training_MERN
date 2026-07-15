@@ -37,9 +37,13 @@ export default function Student() {
     <section className="bg-gray-100 min-h-screen py-16">
       <div className="max-w-7xl mx-auto px-6">
 
-        <h1 className="text-4xl font-bold text-center text-blue-700 mb-3">
-          Registered Students
-        </h1>
+      <h2 className="text-4xl font-bold text-blue-700 text-center">
+    Registered Students
+</h2>
+
+<p className="text-gray-500 mt-2 text-center">
+    Total Students : {students.length}
+</p>
 
         <p className="text-center text-gray-600 mb-12">
           Explore talented students available for campus placements.

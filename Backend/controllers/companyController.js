@@ -1,4 +1,5 @@
 import Company from '../models/company.js'
+import Student from '../models/student.js';
 
 export const addCompany = async (req, res) => {
    try {
@@ -131,3 +132,62 @@ export const deleteCompany=async(req,res)=>{
       })
    }
 }
+
+export const applyJob = async (req, res) => {
+  try {
+    const studentId = req.user.id;
+    const companyId = req.params.companyId;
+
+    // Find Student
+    const student = await Student.findById(studentId).populate("appliedCompanies");;
+
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: "Student not found",
+      });
+    }
+
+    // Find Company
+    const company = await Company.findById(companyId);
+
+    if (!company) {
+      return res.status(404).json({
+        success: false,
+        message: "Company not found",
+      });
+    }
+
+    // Check if already applied
+    if (student.appliedCompanies.includes(companyId)) {
+      return res.status(400).json({
+        success: false,
+        message: "You have already applied for this job.",
+      });
+    }
+
+    // Add company to student's applied companies
+    student.appliedCompanies.push(companyId);
+
+    // Add student to company's applicants
+    company.appliedStudents.push(studentId);
+
+    // Save both
+    await student.save();
+    await company.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Job Applied Successfully",
+      student,
+      company,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

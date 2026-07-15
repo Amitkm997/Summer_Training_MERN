@@ -10,7 +10,7 @@ import Login from "./pages/Login";
 import StudentRegistration from "./pages/StudentRegistration";
 import AddCompany from "../Admin/AddCompany";
 import CompanyDetails from "./components/CompanyDetails";
-
+import StudentProfile from "./pages/StudentProfile";
 
 // import StudentRegistration from "./pages/StudentRegistration"
 function App() {
@@ -27,7 +27,7 @@ function App() {
         <Route path="/registration" element={<StudentRegistration />} />
         <Route path="/add-company" element={<AddCompany />} />
         <Route path="/company/:id" element={<CompanyDetails />} />
-        {/* <Route path="/students" element={<StudentCard/>}/> */}
+        <Route path="/student/:id" element={<StudentProfile />} />
       </Routes>
 
       <Footer />
